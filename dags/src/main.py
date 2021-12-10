@@ -2,6 +2,7 @@ import logging as log
 import os
 from constants import FILES_PATH
 
+
 import scrapper as sc
 from gcp import upload_to_cloud, gcs_to_bq
 

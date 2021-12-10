@@ -5,7 +5,7 @@ import logging as log
 import json
 import csv
 
-from src.constants import FILES_PATH
+from constants import FILES_PATH
 
 
 def get_top_ten_tags() -> list:
