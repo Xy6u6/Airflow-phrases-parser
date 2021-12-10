@@ -38,6 +38,5 @@ def main():
     upload_files_to_cloud()
     log.info('all done')
 
-
 if __name__ == '__main__':
     main()

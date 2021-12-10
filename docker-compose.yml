@@ -16,7 +16,7 @@ services:
   webserver:
     build: .
     environment:
-      AIRFLOW__CORE__EXECUTOR: localExecutor
+      #AIRFLOW__CORE__EXECUTOR: localExecutor
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: ''
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'

@@ -14,7 +14,9 @@ default_args = {
     "retries": 1,
     "retry_delay": timedelta(minutes=5)}
 
-with DAG("scrapper", start_date=datetime(2021, 1, 12), schedule_interval='@daily', default_args=default_args,
+with DAG("scrapper", start_date=datetime(2021, 1, 12),
+         schedule_interval='@daily',
+         default_args=default_args,
          catchup=False) as dag:
     get_top_ten_tags = PythonOperator(
         task_id='get_top_ten_tags',

@@ -8,7 +8,7 @@ ARG AIRFLOW_HOME=/opt/airflow
 
 # Export the environment variable AIRFLOW_HOME where airflow will be installed
 ENV AIRFLOW_HOME=${AIRFLOW_HOME}
-
+ENV PYTHONPATH "${PYTHONPATH}:/opt/airflow/dags/src"
 # Install dependencies and tools
 # Upgrade pip
 # Create airflow user 
