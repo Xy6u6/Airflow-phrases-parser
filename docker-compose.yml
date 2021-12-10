@@ -22,10 +22,10 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     volumes:
       -  /tmp/parser/:/tmp/parser/
-      - ./dags:/opt/airflow/dags
-      - ./dags/src/:/opt/airflow/dags/src
+      # ./dags:/opt/airflow/dags
+      # ./dags/src/:/opt/airflow/dags/src
       #- ./airflow/logs:/opt/airflow/logs
-      - ./plugins:/opt/airflow/plugins
+      # ./plugins:/opt/airflow/plugins
     ports:
       - "8080:8080"
 volumes:
