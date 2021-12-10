@@ -9,6 +9,7 @@ from constants import FILES_PATH
 
 
 def get_top_ten_tags() -> list:
+    log.info('start parsing')
     """func returns urls with top ten tags to parse"""
     url = 'https://quotes.toscrape.com'
     res = requests.get(url)
@@ -16,6 +17,7 @@ def get_top_ten_tags() -> list:
     top_ten_tags = sp.find('h2', string="Top Ten tags").findParent()
     hrefs = top_ten_tags.findAll('a', class_='tag')
     urls_list = [url + str(i.get('href')) + 'page/' for i in hrefs]
+    log.info(f'list created {len(urls_list)},details: {urls_list}')
     return urls_list
 
 
