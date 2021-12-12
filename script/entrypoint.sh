@@ -20,6 +20,6 @@ airflow db init
 # Create User
 airflow users create -e "admin@airflow.com" -f "airflow" -l "airflow" -p "airflow" -r "Admin" -u "airflow"
 
-airflow scheduler & #> /dev/null &
+airflow scheduler & > /dev/null &
 
 exec airflow webserver

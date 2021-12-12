@@ -3,7 +3,7 @@ import logging
 from google.cloud import storage
 from google.cloud import bigquery
 
-service_acc_key_path = 'tmp/gcp_acc.json'
+service_acc_key_path = 'credentials/gcp_acc.json'
 gcs_bucket_path = "gs://parser/"
 def upload_to_cloud(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
