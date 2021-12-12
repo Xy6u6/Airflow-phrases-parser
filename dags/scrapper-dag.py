@@ -1,6 +1,7 @@
 import logging
 
 from airflow import DAG
+from airflow.contrib.operators.gcs_operator import GoogleCloudStorageCreateBucketOperator
 from airflow.operators.python import PythonOperator
 
 from datetime import datetime, timedelta
@@ -45,8 +46,17 @@ with DAG("scrapper", start_date=datetime(2021, 1, 12),
         task_id='phrases_to_files',
         python_callable=phrases_to_files
     )
+    CreateBucket = GoogleCloudStorageCreateBucketOperator(
+        task_id="CreateNewBucket",
+        bucket_name="test-bucket",
+        storage_class="MULTI_REGIONAL",
+        location="EU",
+        labels={"env": "dev", "team": "airflow"},
+        gcp_conn_id="airflow-conn-id",
+    )
     upload = PythonOperator(
         task_id='upload_to_gcs',
         python_callable=upload_files_to_cloud
     )
-get_top_ten_tags >> parse_my_urls >> write_to_files >> upload
+
+get_top_ten_tags >> parse_my_urls >> write_to_files >> CreateBucket >> upload

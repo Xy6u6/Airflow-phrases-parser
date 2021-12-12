@@ -3,18 +3,27 @@ import logging
 from google.cloud import storage
 from google.cloud import bigquery
 
-service_acc_key_path = 'credentials/gcp_acc.json'
-gcs_bucket_path = "gs://parser/"
+service_acc_key_path = '../../credentials/gcp_acc.json'
+gcs_bucket_name = "parser"
+gcs_bucket_path = f"gs://{gcs_bucket_name}/"
+
+
 def upload_to_cloud(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
     storage_client = storage.Client.from_service_account_json(service_acc_key_path)
+    try:
+        storage_client = storage.Client.from_service_account_json(service_acc_key_path)
+        new_bucket = storage_client.create_bucket(bucket_name)
+        logging.info(f"Bucket with name {new_bucket.name} has been created")
+    except:
+        logging.info(f'Bucket with name {bucket_name} already exist')
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)
     logging.info("File {} uploaded to {}.".format(source_file_name, destination_blob_name))
 
 
-def gcs_to_bq(file:str):
+def gcs_to_bq(file: str):
     """from cloud storage to bigquery"""
     client = bigquery.Client.from_service_account_json(service_acc_key_path)
     table_id = "testing.parser"
@@ -38,4 +47,4 @@ def gcs_to_bq(file:str):
 
 
 if __name__ == '__main__':
-    gcs_to_bq()
+    pass
