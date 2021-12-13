@@ -3,20 +3,21 @@ import logging
 from google.cloud import storage
 from google.cloud import bigquery
 
-service_acc_key_path = '../../credentials/gcp_acc.json'
-gcs_bucket_name = "parser"
-gcs_bucket_path = f"gs://{gcs_bucket_name}/"
+from dags.src.constants import service_acc_key_path, gcs_bucket_path
 
 
-def upload_to_cloud(bucket_name, source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    storage_client = storage.Client.from_service_account_json(service_acc_key_path)
+def create_bucket(bucket_name: str):
     try:
         storage_client = storage.Client.from_service_account_json(service_acc_key_path)
         new_bucket = storage_client.create_bucket(bucket_name)
         logging.info(f"Bucket with name {new_bucket.name} has been created")
     except:
         logging.info(f'Bucket with name {bucket_name} already exist')
+
+
+def upload_to_cloud(bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    storage_client = storage.Client.from_service_account_json(service_acc_key_path)
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)

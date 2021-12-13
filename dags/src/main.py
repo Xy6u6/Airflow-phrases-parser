@@ -1,10 +1,9 @@
 import logging as log
 import os
-from constants import FILES_PATH
-
+from dags.src.constants import FILES_PATH, gcs_bucket_name
 
 import scrapper as sc
-from gcp import upload_to_cloud, gcs_to_bq
+from gcp import upload_to_cloud, gcs_to_bq, create_bucket
 
 
 def parse_urls(urls):
@@ -18,10 +17,11 @@ def parse_urls(urls):
 
 def upload_files_to_cloud():
     list_of_files = os.listdir(FILES_PATH)
+    create_bucket(gcs_bucket_name) #trying create a bucket
     for file in list_of_files:
         log.info(f'uploading to cloud storage {file}')
         local_file_path = FILES_PATH + file
-        upload_to_cloud("parser", local_file_path, file)
+        upload_to_cloud(gcs_bucket_name, local_file_path, file)
         log.info(f'tranfer to bigquery {file}, of {len(list_of_files)} files')
         gcs_to_bq(file)
 
