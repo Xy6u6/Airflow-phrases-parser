@@ -8,6 +8,9 @@ Steps to run:
 
      mkdir -p /tmp/parser/
 
+3 - add
+
+    mkdir -p Airflow-phrases-parser/credentials/ && touch $_/gcp_acc.json
 3 - run 
     
     docker-compose up --build
