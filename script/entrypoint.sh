@@ -13,7 +13,7 @@ export \
   AIRFLOW__CORE__LOAD_EXAMPLES \
 # Move to the AIRFLOW HOME directory
 cd $AIRFLOW_HOME
-
+#mkdir -p -m 777 /tmp/parser
 # Initiliase the metadatabase
 airflow db init
 

@@ -24,9 +24,8 @@ COPY dags/ $AIRFLOW_HOME/dags/
 
 USER root
 RUN chmod +x $AIRFLOW_HOME/script/entrypoint.sh
-#RUN mkdir -m 777 "/tmp/parser"
 RUN chown -R airflow: ${AIRFLOW_HOME}
-#RUN chown -R airflow: /tmp/parser
+
 USER airflow
 
 
